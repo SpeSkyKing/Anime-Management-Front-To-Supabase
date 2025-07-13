@@ -1,0 +1,7 @@
+services:
+  frontend:
+    build: ./app
+    ports:
+      - 13000:3000
+    volumes:
+      - ./app:/app
