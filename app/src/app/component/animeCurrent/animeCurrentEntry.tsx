@@ -37,7 +37,9 @@ const AnimeCurrentEntry = () => {
           *,
           anime!inner(*)
         `)
-        .eq('anime.user_id', user.id);
+        .eq('anime.user_id', user.id)
+        .order('delivery_weekday', { ascending: true })
+        .order('delivery_time', { ascending: true });
         
       if (error) throw error;
       
@@ -143,7 +145,7 @@ const AnimeCurrentEntry = () => {
               <th className="px-1 py-2 text-left font-medium text-gray-700 text-center text-[vw] whitespace-nowrap">配信開始日</th>
               <th className="px-1 py-2 text-left font-medium text-gray-700 text-center text-[vw] whitespace-nowrap">曜日</th>
               <th className="px-1 py-2 text-left font-medium text-gray-700 text-center text-[vw] whitespace-nowrap">配信時間</th>
-              <th className="px-1 py-2 text-left font-medium text-gray-700 text-center text-[vw] whitespace-nowrap">推しキャラ</th>
+              {/* <th className="px-1 py-2 text-left font-medium text-gray-700 text-center text-[vw] whitespace-nowrap">推しキャラ</th> */}
               <th className="px-1 py-2 text-left font-medium text-gray-700 text-center text-[vw] whitespace-nowrap">視聴話数</th>
               <th className="px-1 py-2 text-left font-medium text-gray-700 text-center text-[vw] whitespace-nowrap">カウント</th>
               <th className="px-1 py-2 text-left font-medium text-gray-700 text-center text-[vw] whitespace-nowrap">終了</th>

@@ -85,8 +85,8 @@ export const AnimeCurrentListItem : React.FC<AnimeCurrentListItemProps> = ({curr
             <td className="!text-black px-4 py-2 text-left text-[vw] whitespace-nowrap">{animeName}</td>
             <td className="!text-black px-4 py-2 text-center text-[vw] whitespace-nowrap">{releaseDate}</td>
             <td className={`!text-black px-4 py-2 text-center text-[vw] whitespace-nowrap ${stateBgColorClass}`}>{deliveryWeeday}</td>
-            <td className="!text-black px-4 py-2 text-center text-[vw] whitespace-nowrap">{currentAnime.delivery_time}</td>
-            <td className="!text-black px-4 py-2 text-center text-[vw] whitespace-nowrap">{currentAnime.anime.favoritecharacter}</td>
+            <td className="!text-black px-4 py-2 text-center text-[vw] whitespace-nowrap">{currentAnime.delivery_time.slice(0, 5)}</td>
+            {/* <td className="!text-black px-4 py-2 text-center text-[vw] whitespace-nowrap">{currentAnime.anime.favoritecharacter}</td> */}
             <td className="!text-black px-4 py-2 text-center text-[vw] whitespace-nowrap">{currentAnime.anime.episode}話</td>
             <td className="!text-black px-4 py-2 text-center text-[vw] whitespace-nowrap">
                 <button 
