@@ -131,24 +131,22 @@ const AnimeCurrentEntry = () => {
   }, [user, getCurrentAnime])
 
   return (
-    <div className="block justify-center p-8 bg-gray-100 bg-opacity-50 min-h-full min-w-full">
-      <div className="flex flex-row items-center justify-center space-x-8 my-4">
-        <div className="text-2xl text-gray-800 font-semibold mt-4">{dayOfWeek}</div>
-        <div className="text-2xl text-indigo-600 font-bold mt-4">{dateString}</div>
-        <div className="text-2xl text-gray-600 mt-4">{timeString}</div>
+    <div className="block justify-center p-2 bg-gray-100 bg-opacity-50 min-h-full min-w-full">
+      <div className="flex flex-row items-center justify-center space-x-4 my-1">
+        <div className="text-sm md:text-xl text-gray-800 font-semibold mt-2">{dayOfWeek}</div>
+        <div className="text-sm md:text-xl text-indigo-600 font-bold mt-2">{dateString}</div>
+        <div className="text-sm md:text-xl text-gray-600 mt-2">{timeString}</div>
       </div>
-      <div className="h-full w-full overflow-x-auto flex justify-start">
+      <div className="h-[calc(100vh-8rem)] w-full overflow-auto">
         <table className="table-auto w-full border-collapse border border-gray-300">
           <thead className="sticky top-0 bg-white z-10">
             <tr className="bg-gray-100">
-              <th className="px-1 py-2 text-left font-medium text-gray-700 text-center text-[vw] whitespace-nowrap">アニメ名</th>
-              <th className="px-1 py-2 text-left font-medium text-gray-700 text-center text-[vw] whitespace-nowrap">配信開始日</th>
-              <th className="px-1 py-2 text-left font-medium text-gray-700 text-center text-[vw] whitespace-nowrap">曜日</th>
-              <th className="px-1 py-2 text-left font-medium text-gray-700 text-center text-[vw] whitespace-nowrap">配信時間</th>
-              {/* <th className="px-1 py-2 text-left font-medium text-gray-700 text-center text-[vw] whitespace-nowrap">推しキャラ</th> */}
-              <th className="px-1 py-2 text-left font-medium text-gray-700 text-center text-[vw] whitespace-nowrap">視聴話数</th>
-              <th className="px-1 py-2 text-left font-medium text-gray-700 text-center text-[vw] whitespace-nowrap">カウント</th>
-              <th className="px-1 py-2 text-left font-medium text-gray-700 text-center text-[vw] whitespace-nowrap">終了</th>
+              <th className="px-1 py-1 text-xs md:px-4 md:py-2 md:text-base font-medium text-gray-700 text-center whitespace-nowrap">タイトル</th>
+              {/* <th className="px-1 py-1 text-xs font-medium text-gray-700 text-center whitespace-nowrap">配信開始日</th> */}
+              <th className="px-1 py-1 text-xs md:px-4 md:py-2 md:text-base font-medium text-gray-700 text-center whitespace-nowrap">曜日</th>
+              <th className="px-1 py-1 text-xs md:px-4 md:py-2 md:text-base font-medium text-gray-700 text-center whitespace-nowrap">配信</th>
+              <th className="px-1 py-1 text-xs md:px-4 md:py-2 md:text-base font-medium text-gray-700 text-center whitespace-nowrap">話数</th>
+              <th className="px-1 py-1 text-xs md:px-4 md:py-2 md:text-base font-medium text-gray-700 text-center whitespace-nowrap">操作</th>
             </tr>
           </thead>
           <tbody>

@@ -78,29 +78,37 @@ export const AnimeCurrentListItem : React.FC<AnimeCurrentListItemProps> = ({curr
 
     const bgColor = getRowBgColor(currentAnime);
 
-    const animeName = currentAnime.anime.anime_name.length > 10 ? currentAnime.anime.anime_name.slice(0,10) + '…': currentAnime.anime.anime_name;
+    const formatAnimeName = (name: string) => {
+        if (window.innerWidth >= 768) return name; // Web版では区切らない
+        if (name.length <= 10) return name;
+        const chunks = [];
+        for (let i = 0; i < name.length; i += 10) {
+            chunks.push(name.slice(i, i + 10));
+        }
+        return chunks.join('\n');
+    };
+    const animeName = formatAnimeName(currentAnime.anime.anime_name);
 
     return (
         <tr className={`bg-white hover:bg-gray-100 ${bgColor}`}>
-            <td className="!text-black px-4 py-2 text-left text-[vw] whitespace-nowrap">{animeName}</td>
-            <td className="!text-black px-4 py-2 text-center text-[vw] whitespace-nowrap">{releaseDate}</td>
-            <td className={`!text-black px-4 py-2 text-center text-[vw] whitespace-nowrap ${stateBgColorClass}`}>{deliveryWeeday}</td>
-            <td className="!text-black px-4 py-2 text-center text-[vw] whitespace-nowrap">{currentAnime.delivery_time.slice(0, 5)}</td>
-            {/* <td className="!text-black px-4 py-2 text-center text-[vw] whitespace-nowrap">{currentAnime.anime.favoritecharacter}</td> */}
-            <td className="!text-black px-4 py-2 text-center text-[vw] whitespace-nowrap">{currentAnime.anime.episode}話</td>
-            <td className="!text-black px-4 py-2 text-center text-[vw] whitespace-nowrap">
-                <button 
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out"
-                    onClick={onEpisodeUp}>
-                視聴
-                </button>
-            </td>
-            <td className="!text-black px-4 py-2 text-center text-[vw] whitespace-nowrap">
-                <button 
-                    className="bg-red-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out"
-                    onClick={onFinishAnime}>
-                終了
-                </button>
+            <td className="!text-black px-1 py-1 text-xs md:text-base whitespace-pre md:whitespace-nowrap">{animeName}</td>
+            {/* <td className="!text-black px-1 py-1 text-center text-xs whitespace-nowrap">{releaseDate}</td> */}
+            <td className={`!text-black px-1 py-1 text-center text-xs md:text-base whitespace-nowrap ${stateBgColorClass}`}>{deliveryWeeday}</td>
+            <td className="!text-black px-1 py-1 text-center text-xs md:text-base whitespace-nowrap">{currentAnime.delivery_time.slice(0, 5)}</td>
+            <td className="!text-black px-1 py-1 text-center text-xs md:text-base whitespace-nowrap">{currentAnime.anime.episode}話</td>
+            <td className="!text-black px-1 py-1 text-center whitespace-nowrap">
+                <div className="flex flex-col md:flex-row gap-1 md:gap-4 md:justify-center">
+                    <button 
+                        className="bg-blue-500 hover:bg-blue-700 text-white text-xs py-1 px-2 md:w-24 md:h-16 md:text-base rounded"
+                        onClick={onEpisodeUp}>
+                    視聴
+                    </button>
+                    <button 
+                        className="bg-red-500 hover:bg-red-700 text-white text-xs py-1 px-2 md:w-24 md:h-16 md:text-base rounded"
+                        onClick={onFinishAnime}>
+                    終了
+                    </button>
+                </div>
             </td>
         </tr>
     );

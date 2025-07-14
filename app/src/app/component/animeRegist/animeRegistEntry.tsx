@@ -37,6 +37,21 @@ const AnimeRegistEntry = () => {
     }
     
     try {
+      // 同名アニメのチェック
+      const { data: existingAnime, error: checkError } = await supabase
+        .from('anime')
+        .select('anime_name')
+        .eq('user_id', user.id)
+        .eq('anime_name', formData.animeName)
+        .single();
+        
+      if (checkError && checkError.code !== 'PGRST116') throw checkError;
+      
+      if (existingAnime) {
+        alert('同じ名前のアニメが既に登録されています');
+        return;
+      }
+      
       // アニメテーブルに挿入
       const { data: animeData, error: animeError } = await supabase
         .from('anime')

@@ -2,6 +2,17 @@ import { AnimePastListItemProps } from "../data/props";
 export const AnimePastListItem : React.FC<AnimePastListItemProps> = ({pastAnime,onclick,onFinish}) => {
 
     const releaseDate = pastAnime.watching_start_date.split('T')[0];
+    
+    const formatAnimeName = (name: string) => {
+        if (window.innerWidth >= 768) return name;
+        if (name.length <= 10) return name;
+        const chunks = [];
+        for (let i = 0; i < name.length; i += 10) {
+            chunks.push(name.slice(i, i + 10));
+        }
+        return chunks.join('\n');
+    };
+    const animeName = formatAnimeName(pastAnime.anime.anime_name);
 
     const onEpisodeUp = () => {
         onclick(pastAnime);
@@ -13,23 +24,23 @@ export const AnimePastListItem : React.FC<AnimePastListItemProps> = ({pastAnime,
      
     return (
         <tr className="bg-white hover:bg-gray-100">
-            <td className="!text-black px-4 py-2 text-center text-[vw] whitespace-nowrap">{pastAnime.anime.anime_name}</td>
-            <td className="!text-black px-4 py-2 text-center text-[vw] whitespace-nowrap">{releaseDate}</td>
-            <td className="!text-black px-4 py-2 text-center text-[vw] whitespace-nowrap">{pastAnime.anime.favoritecharacter}</td>
-            <td className="!text-black px-4 py-2 text-center text-[vw] whitespace-nowrap">{pastAnime.anime.episode}話</td>
-            <td className="!text-black px-4 py-2 text-center text-[vw] whitespace-nowrap">
-                <button 
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out"
-                    onClick={onEpisodeUp}>
-                視聴
-                </button>
-            </td>
-            <td className="!text-black px-4 py-2 text-center text-[vw] whitespace-nowrap">
-                <button 
-                    className="bg-red-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out"
-                    onClick={onFinishAnime}>
-                視聴終了
-                </button>
+            <td className="!text-black px-1 py-1 text-center text-xs md:text-base whitespace-pre md:whitespace-nowrap">{animeName}</td>
+            <td className="!text-black px-1 py-1 text-center text-xs md:text-base whitespace-nowrap">{releaseDate}</td>
+            <td className="!text-black px-1 py-1 text-center text-xs md:text-base whitespace-nowrap">{pastAnime.anime.favoritecharacter}</td>
+            <td className="!text-black px-1 py-1 text-center text-xs md:text-base whitespace-nowrap">{pastAnime.anime.episode}話</td>
+            <td className="!text-black px-1 py-1 text-center whitespace-nowrap">
+                <div className="flex flex-col md:flex-row gap-1 md:gap-4 md:justify-center">
+                    <button 
+                        className="bg-blue-500 hover:bg-blue-700 text-white text-xs py-1 px-2 md:w-24 md:h-16 md:text-base rounded"
+                        onClick={onEpisodeUp}>
+                    視聴
+                    </button>
+                    <button 
+                        className="bg-red-500 hover:bg-red-700 text-white text-xs py-1 px-2 md:w-24 md:h-16 md:text-base rounded"
+                        onClick={onFinishAnime}>
+                    終了
+                    </button>
+                </div>
             </td>
         </tr>
     );

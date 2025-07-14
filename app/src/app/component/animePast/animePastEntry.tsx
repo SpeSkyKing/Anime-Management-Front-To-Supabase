@@ -109,17 +109,16 @@ const AnimePastEntry = () => {
       }
     }, [user, getPastAnime])
   return (
-    <div className="flex justify-center p-8 bg-gray-100 bg-opacity-50 min-h-full min-w-full">
-      <div className="h-full w-full overflow-x-auto flex justify-start">
+    <div className="flex justify-center p-2 bg-gray-100 bg-opacity-50 min-h-full min-w-full">
+      <div className="h-[calc(100vh-6rem)] w-full overflow-auto">
         <table className="table-auto w-full border-collapse border border-gray-300">
           <thead className="sticky top-0 bg-white z-10">
             <tr className="bg-gray-100">
-              <th className="px-4 py-2 text-left font-medium text-gray-700 text-center">アニメ名</th>
-              <th className="px-4 py-2 text-left font-medium text-gray-700 text-center">視聴開始日</th>
-              <th className="px-4 py-2 text-left font-medium text-gray-700 text-center">推しキャラ</th>
-              <th className="px-4 py-2 text-left font-medium text-gray-700 text-center">視聴話数</th>
-              <th className="px-4 py-2 text-left font-medium text-gray-700 text-center">カウント</th>
-              <th className="px-4 py-2 text-left font-medium text-gray-700 text-center text-[vw] whitespace-nowrap">視聴終了</th>
+              <th className="px-1 py-1 text-xs md:px-4 md:py-2 md:text-base font-medium text-gray-700 text-center">タイトル</th>
+              <th className="px-1 py-1 text-xs md:px-4 md:py-2 md:text-base font-medium text-gray-700 text-center">視聴開始日</th>
+              <th className="px-1 py-1 text-xs md:px-4 md:py-2 md:text-base font-medium text-gray-700 text-center">推しキャラ</th>
+              <th className="px-1 py-1 text-xs md:px-4 md:py-2 md:text-base font-medium text-gray-700 text-center">話数</th>
+              <th className="px-1 py-1 text-xs md:px-4 md:py-2 md:text-base font-medium text-gray-700 text-center">操作</th>
             </tr>
           </thead>
           <tbody>
