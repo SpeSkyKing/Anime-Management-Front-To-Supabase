@@ -22,11 +22,12 @@ const AnimeViewedEntry = () => {
           *,
           anime!inner(*)
         `)
-        .eq('anime.user_id', user.id);
+        .eq('anime.user_id', user.id)
+        .order('anime(view_count)', { ascending: false });
         
       if (error) throw error;
       
-      const formattedData: IViewedAnime[] = data.map((item: { id: number; anime_id: number; viewed_end_date: string; anime: { id: number; user_id: string; anime_name: string; episode: number; favoritecharacter: string; speed: boolean } }) => ({
+      const formattedData: IViewedAnime[] = data.map((item: { id: number; anime_id: number; viewed_end_date: string; anime: { id: number; user_id: string; anime_name: string; episode: number; favoritecharacter: string; speed: boolean; view_count: number } }) => ({
         id: item.id,
         anime_id: item.anime_id,
         viewed_end_date: item.viewed_end_date,
@@ -37,6 +38,7 @@ const AnimeViewedEntry = () => {
           episode: item.anime.episode,
           favoritecharacter: item.anime.favoritecharacter,
           speed: item.anime.speed,
+          view_count: item.anime.view_count || 0,
         },
       }));
       SetViewedAnime(formattedData);
@@ -50,7 +52,7 @@ const AnimeViewedEntry = () => {
       if (user) {
         getViewedAnime();
       }
-    }, [user, getViewedAnime])
+    }, [user])
 
     const watchingAgainAnime = async (animeId : number) => {
       try {
@@ -90,7 +92,7 @@ const AnimeViewedEntry = () => {
             <tr className="bg-gray-100">
               <th className="px-1 py-1 text-xs md:px-4 md:py-2 md:text-base font-medium text-gray-700 text-center">タイトル</th>
               <th className="px-1 py-1 text-xs md:px-4 md:py-2 md:text-base font-medium text-gray-700 text-center">視聴終了日</th>
-              <th className="px-1 py-1 text-xs md:px-4 md:py-2 md:text-base font-medium text-gray-700 text-center">推しキャラ</th>
+              <th className="px-1 py-1 text-xs md:px-4 md:py-2 md:text-base font-medium text-gray-700 text-center">視聴回数</th>
               <th className="px-1 py-1 text-xs md:px-4 md:py-2 md:text-base font-medium text-gray-700 text-center">再視聴</th> 
             </tr>
           </thead>

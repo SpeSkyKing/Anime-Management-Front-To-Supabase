@@ -24,9 +24,8 @@ export const AnimePastListItem : React.FC<AnimePastListItemProps> = ({pastAnime,
      
     return (
         <tr className="bg-white hover:bg-gray-100">
-            <td className="!text-black px-1 py-1 text-center text-xs md:text-base whitespace-pre md:whitespace-nowrap">{animeName}</td>
+            <td className="!text-black px-1 py-1 text-xs md:text-base whitespace-pre md:whitespace-nowrap">{animeName}</td>
             <td className="!text-black px-1 py-1 text-center text-xs md:text-base whitespace-nowrap">{releaseDate}</td>
-            <td className="!text-black px-1 py-1 text-center text-xs md:text-base whitespace-nowrap">{pastAnime.anime.favoritecharacter}</td>
             <td className="!text-black px-1 py-1 text-center text-xs md:text-base whitespace-nowrap">{pastAnime.anime.episode}話</td>
             <td className="!text-black px-1 py-1 text-center whitespace-nowrap">
                 <div className="flex flex-col md:flex-row gap-1 md:gap-4 md:justify-center">

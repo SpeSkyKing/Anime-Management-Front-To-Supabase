@@ -25,9 +25,9 @@ export const AnimeViewedListItem : React.FC<AnimeViewedListItemProps> = ({viewed
      
     return (
         <tr className="bg-white hover:bg-gray-100">
-            <td className="!text-black px-1 py-1 text-center text-xs md:text-base whitespace-pre md:whitespace-nowrap">{animeName}</td>
+            <td className="!text-black px-1 py-1 text-xs md:text-base whitespace-pre md:whitespace-nowrap">{animeName}</td>
             <td className="!text-black px-1 py-1 text-center text-xs md:text-base whitespace-nowrap">{releaseDate}</td>
-            <td className="!text-black px-1 py-1 text-center text-xs md:text-base whitespace-nowrap">{viewedAnime.anime.favoritecharacter}</td>
+            <td className="!text-black px-1 py-1 text-center text-xs md:text-base whitespace-nowrap">{viewedAnime.anime.view_count || 1}</td>
             <td className="!text-black px-1 py-1 text-center whitespace-nowrap">
                 <div className="flex justify-center">
                     <button 

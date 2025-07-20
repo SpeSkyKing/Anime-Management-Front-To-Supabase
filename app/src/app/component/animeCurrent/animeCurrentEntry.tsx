@@ -92,6 +92,27 @@ const AnimeCurrentEntry = () => {
 
   const currentAnimeFinishWatching = async (animeId : number) => {
     try {
+      // animeテーブルからview_countを取得して加算
+      const { data: animeData, error: fetchError } = await supabase
+        .from('anime')
+        .select('view_count')
+        .eq('anime_id', animeId)
+        .single();
+        
+      if (fetchError) throw fetchError;
+      
+      // view_countを更新、episodeを0にリセット
+      const currentCount = animeData.view_count || 0;
+      const { error: updateError } = await supabase
+        .from('anime')
+        .update({ 
+          view_count: currentCount + 1,
+          episode: 0
+        })
+        .eq('anime_id', animeId);
+        
+      if (updateError) throw updateError;
+      
       // current_animeから削除
       const { error: deleteError } = await supabase
         .from('current_anime')
@@ -105,6 +126,7 @@ const AnimeCurrentEntry = () => {
         .from('viewed_anime')
         .insert({
           anime_id: animeId,
+          user_id: user?.id,
           viewed_end_date: new Date().toISOString()
         });
         
@@ -128,7 +150,7 @@ const AnimeCurrentEntry = () => {
     if (user) {
       getCurrentAnime();
     }
-  }, [user, getCurrentAnime])
+  }, [user])
 
   return (
     <div className="block justify-center p-2 bg-gray-100 bg-opacity-50 min-h-full min-w-full">
