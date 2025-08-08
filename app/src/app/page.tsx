@@ -6,12 +6,39 @@ import LoginEntry  from "./component/login/loginEntry";
 import Tab from "./component/layout/tab";
 import { IContent } from "./component/data/interface";
 import { ContentArray } from "./component/data/content";
+import { supabase } from "../lib/supabaseClient";
   
 export default function Home() {
   const tabContent: Array<IContent> = ContentArray;
   const [selectContent, setSelectContent] = useState<IContent>({content:"title",contentName:"タイトル"});
   const [beforeLogin,isBeforeLogin] = useState<boolean>(true);
   const [token,setToken] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session) {
+        setToken(session.access_token);
+        isBeforeLogin(false);
+      }
+      setLoading(false);
+    };
+
+    checkAuth();
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      if (session) {
+        setToken(session.access_token);
+        isBeforeLogin(false);
+      } else {
+        setToken("");
+        isBeforeLogin(true);
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
 
   useEffect(() =>{
       if(token){
@@ -26,6 +53,10 @@ export default function Home() {
   const onLogin = (_token:string) => {
     setToken(_token);
     isBeforeLogin(false);
+  }
+
+  if(loading){
+    return <div className="flex justify-center items-center h-screen">読み込み中...</div>;
   }
 
   if(beforeLogin){
