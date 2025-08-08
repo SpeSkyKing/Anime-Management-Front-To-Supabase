@@ -23,7 +23,8 @@ const AnimePastEntry = () => {
             anime!inner(*)
           `)
           .eq('anime.user_id', user.id)
-          .order('anime(episode)', { ascending: false });
+          .order('anime(episode)', { ascending: false })
+          .order('anime(anime_name)', { ascending: true });
           
         if (error) throw error;
         
