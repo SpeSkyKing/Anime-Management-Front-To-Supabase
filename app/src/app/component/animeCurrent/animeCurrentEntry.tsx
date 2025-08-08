@@ -159,7 +159,7 @@ const AnimeCurrentEntry = () => {
         <div className="text-sm md:text-xl text-indigo-600 font-bold mt-2">{dateString}</div>
         <div className="text-sm md:text-xl text-gray-600 mt-2">{timeString}</div>
       </div>
-      <div className="h-[calc(100vh-8rem)] w-full overflow-auto">
+      <div className="h-[calc(100vh-8rem)] w-full overflow-auto scrollbar-hide">
         <table className="table-auto w-full border-collapse border border-gray-300">
           <thead className="sticky top-0 bg-white z-10">
             <tr className="bg-gray-100">

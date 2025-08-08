@@ -65,18 +65,26 @@ export const AnimeCurrentListItem : React.FC<AnimeCurrentListItemProps> = ({curr
         return diffInWeeks + 1;
     };
 
-    const getRowBgColor = (currentAnime:ICurrentAnime) => {
+    const getRowStyle = (currentAnime:ICurrentAnime) => {
         const { delivery_time:delivery, anime:animeInfo } = currentAnime;
         const expectedEpisodes = getExpectedEpisodes(delivery);
 
         if (expectedEpisodes > animeInfo.episode) {
-            return 'bg-yellow-300';
+            return {
+                bgColor: 'bg-gray-300',
+                borderClass: 'border-4 border-red-800',
+                fontWeight: 'font-bold'
+            };
         }else{
-            return '';
+            return {
+                bgColor: '',
+                borderClass: '',
+                fontWeight: ''
+            };
         }
     };
 
-    const bgColor = getRowBgColor(currentAnime);
+    const rowStyle = getRowStyle(currentAnime);
 
     const formatAnimeName = (name: string) => {
         if (window.innerWidth >= 768) return name; // Web版では区切らない
@@ -90,7 +98,7 @@ export const AnimeCurrentListItem : React.FC<AnimeCurrentListItemProps> = ({curr
     const animeName = formatAnimeName(currentAnime.anime.anime_name);
 
     return (
-        <tr className={`bg-white hover:bg-gray-100 ${bgColor}`}>
+        <tr className={`bg-white hover:bg-gray-100 ${rowStyle.bgColor} ${rowStyle.borderClass} ${rowStyle.fontWeight}`}>
             <td className="!text-black px-1 py-1 text-xs md:text-base whitespace-pre md:whitespace-nowrap">{animeName}</td>
             {/* <td className="!text-black px-1 py-1 text-center text-xs whitespace-nowrap">{releaseDate}</td> */}
             <td className={`!text-black px-1 py-1 text-center text-xs md:text-base whitespace-nowrap ${stateBgColorClass}`}>{deliveryWeeday}</td>

@@ -86,7 +86,7 @@ const AnimeViewedEntry = () => {
 
   return (
     <div className="flex justify-center p-2 bg-gray-100 bg-opacity-50 min-h-full min-w-full">
-      <div className="h-[calc(100vh-6rem)] w-full overflow-auto">
+      <div className="h-[calc(100vh-6rem)] w-full overflow-auto scrollbar-hide">
         <table className="table-auto w-full border-collapse border border-gray-300">
           <thead className="sticky top-0 bg-white z-10">
             <tr className="bg-gray-100">
