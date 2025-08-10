@@ -4,6 +4,7 @@ import AnimeCurrentEntry from '../animeCurrent/animeCurrentEntry';
 import AnimePastEntry from '../animePast/animePastEntry';
 import AnimeViewedEntry from '../animeViewed/animeViewedEntry';
 import TitleEntry from '../title/titleEntry';
+import WatchHistoryEntry from '../title/watchHistoryEntry';
 
 const Content = ({ content }: { content: string }) => {
 
@@ -37,6 +38,10 @@ const Content = ({ content }: { content: string }) => {
         case 'viewed':
             return (
                 <AnimeViewedEntry></AnimeViewedEntry>
+            );
+        case 'history':
+            return (
+                <WatchHistoryEntry></WatchHistoryEntry>
             );
     }
   }
