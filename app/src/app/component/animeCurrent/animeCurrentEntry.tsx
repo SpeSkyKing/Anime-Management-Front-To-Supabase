@@ -2,6 +2,7 @@ import { useState,useEffect } from "react";
 import { ICurrentAnime } from "../data/interface";
 import { AnimeCurrentListItem } from "./animeCurrentListItem";
 import { supabase } from '../../../lib/supabaseClient';
+import { getCurrentAnime, currentAnimeEpisodeUp, currentAnimeFinishWatching } from '../../../lib/service/animeCurrentService';
 const AnimeCurrentEntry = () => {
 
   const [currentAnime,SetCurrentAnime] = useState<ICurrentAnime[]>([]);
@@ -27,128 +28,53 @@ const AnimeCurrentEntry = () => {
   const dateString = currentDateTime.toLocaleDateString('ja-JP');
   const timeString = currentDateTime.toLocaleTimeString('ja-JP');
 
-  const getCurrentAnime = async () => {
+  const loadCurrentAnime = async () => {
     if (!user) return;
     
     try {
-      const { data, error } = await supabase
-        .from('current_anime')
-        .select(`
-          *,
-          anime!inner(*)
-        `)
-        .eq('anime.user_id', user.id)
-        .order('delivery_weekday', { ascending: true })
-        .order('delivery_time', { ascending: true });
-        
-      if (error) throw error;
-      
-      const formattedData: ICurrentAnime[] = data.map((item: { id: number; anime_id: number; year: number; season: string; releasedate: string; delivery_weekday: string; delivery_time: string; anime: { id: number; user_id: string; anime_name: string; episode: number; favoritecharacter: string; speed: boolean } }) => ({
-        id: item.id,
-        anime_id: item.anime_id,
-        year: item.year,
-        season: item.season as '1' | '2' | '3' | '4',
-        releasedate: item.releasedate,
-        delivery_weekday: item.delivery_weekday as '1' | '2' | '3' | '4' | '5' | '6' | '7',
-        delivery_time: item.delivery_time,
-        anime: {
-          id: item.anime.id,
-          user_id: item.anime.user_id,
-          anime_name: item.anime.anime_name,
-          episode: item.anime.episode,
-          favoritecharacter: item.anime.favoritecharacter,
-          speed: item.anime.speed,
-        },
-      }));
-      SetCurrentAnime(formattedData);
+      const data = await getCurrentAnime(user.id);
+      SetCurrentAnime(data);
     } catch (error) {
       console.error("エラーが発生しました:", error);
       alert("エラーが発生しました。");
     }
   }
 
-  const currentAnimeEpisodeUp = async (animeId : number) => {
+  const handleEpisodeUp = async (animeId : number) => {
+    if (!user) return;
+    
     try {
-      const { data: currentData, error: fetchError } = await supabase
-        .from('anime')
-        .select('episode')
-        .eq('anime_id', animeId)
-        .single();
-        
-      if (fetchError) throw fetchError;
-      
-      const { error } = await supabase
-        .from('anime')
-        .update({ episode: currentData.episode + 1 })
-        .eq('anime_id', animeId);
-        
-      if (error) throw error;
-      getCurrentAnime();
+      await currentAnimeEpisodeUp(animeId, user.id);
+      loadCurrentAnime();
     } catch (error) {
       console.error("エラーが発生しました:", error);
       alert("話数カウントに失敗しました。");
     }
   }
 
-  const currentAnimeFinishWatching = async (animeId : number) => {
+  const handleFinishWatching = async (animeId : number) => {
+    if (!user) return;
+    
     try {
-      // animeテーブルからview_countを取得して加算
-      const { data: animeData, error: fetchError } = await supabase
-        .from('anime')
-        .select('view_count')
-        .eq('anime_id', animeId)
-        .single();
-        
-      if (fetchError) throw fetchError;
-      
-      // view_countを更新、episodeを0にリセット
-      const currentCount = animeData.view_count || 0;
-      const { error: updateError } = await supabase
-        .from('anime')
-        .update({ 
-          view_count: currentCount + 1,
-          episode: 0
-        })
-        .eq('anime_id', animeId);
-        
-      if (updateError) throw updateError;
-      
-      // current_animeから削除
-      const { error: deleteError } = await supabase
-        .from('current_anime')
-        .delete()
-        .eq('anime_id', animeId);
-        
-      if (deleteError) throw deleteError;
-      
-      // viewed_animeに追加
-      const { error: insertError } = await supabase
-        .from('viewed_anime')
-        .insert({
-          anime_id: animeId,
-          user_id: user?.id,
-          viewed_end_date: new Date().toISOString()
-        });
-        
-      if (insertError) throw insertError;
-      getCurrentAnime();
+      await currentAnimeFinishWatching(animeId, user.id);
+      loadCurrentAnime();
     } catch (error) {
       console.error("エラーが発生しました:", error);
       alert("視聴終了に失敗しました。");
     }
   }
 
-  const handleEpisodeUp = (iCurrentAnime:ICurrentAnime) =>{
-    currentAnimeEpisodeUp(iCurrentAnime.anime_id);
+  const onEpisodeUp = (iCurrentAnime:ICurrentAnime) =>{
+    handleEpisodeUp(iCurrentAnime.anime_id);
   }
 
-  const handleFinishWatching = async (iCurrentAnime:ICurrentAnime) => {
-    currentAnimeFinishWatching(iCurrentAnime.anime_id);
+  const onFinishWatching = async (iCurrentAnime:ICurrentAnime) => {
+    handleFinishWatching(iCurrentAnime.anime_id);
   }
 
   useEffect(() => {
     if (user) {
-      getCurrentAnime();
+      loadCurrentAnime();
     }
   }, [user])
 
@@ -173,7 +99,7 @@ const AnimeCurrentEntry = () => {
           </thead>
           <tbody>
             {currentAnime.map((currentAnimedata, index) => (
-              <AnimeCurrentListItem key={index} currentAnime={currentAnimedata} onclick={handleEpisodeUp} onFinish={handleFinishWatching}/>
+              <AnimeCurrentListItem key={index} currentAnime={currentAnimedata} onclick={onEpisodeUp} onFinish={onFinishWatching}/>
             ))}
           </tbody>
         </table>

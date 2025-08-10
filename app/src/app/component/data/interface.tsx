@@ -42,3 +42,12 @@ export interface IViewedAnime{
     created_at?:string,
     anime:IAnime
 }
+
+export interface IAnimeWatchHistory{
+    anime_id:number,
+    user_id:string,
+    history_id:string,
+    episode:number,
+    created_at?:string,
+    updated_at?:string
+}
