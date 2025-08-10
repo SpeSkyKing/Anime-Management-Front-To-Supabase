@@ -46,7 +46,7 @@ export const getWatchHistoryByDate = async (
       .eq('user_id', userId)
       .gte('created_at', startDate)
       .lte('created_at', endDate)
-      .order('created_at', { ascending: false });
+      .order('created_at', { ascending: true });
 
     if (error) {
       console.error('視聴履歴の取得に失敗しました:', error);
