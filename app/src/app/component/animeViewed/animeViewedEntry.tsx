@@ -81,7 +81,7 @@ const AnimeViewedEntry = () => {
     }
 
     const watchingAgain = (iViewedAnime:IViewedAnime) => {
-      watchingAgainAnime(iViewedAnime.anime.id);
+      watchingAgainAnime(iViewedAnime.anime_id);
     }
 
   return (

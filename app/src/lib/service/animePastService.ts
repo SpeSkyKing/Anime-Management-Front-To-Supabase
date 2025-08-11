@@ -34,7 +34,7 @@ export const pastAnimeEpisodeUp = async (animeId: number, userId: string): Promi
   const { data: currentData, error: fetchError } = await supabase
     .from('anime')
     .select('episode')
-    .eq('anime_id', animeId)
+    .eq('id', animeId)
     .single();
     
   if (fetchError) throw fetchError;
@@ -44,7 +44,7 @@ export const pastAnimeEpisodeUp = async (animeId: number, userId: string): Promi
   const { error } = await supabase
     .from('anime')
     .update({ episode: newEpisode })
-    .eq('anime_id', animeId);
+    .eq('id', animeId);
     
   if (error) throw error;
   
@@ -55,7 +55,7 @@ export const pastAnimeFinishWatching = async (animeId: number, userId: string): 
   const { data: animeData, error: fetchError } = await supabase
     .from('anime')
     .select('view_count')
-    .eq('anime_id', animeId)
+    .eq('id', animeId)
     .single();
     
   if (fetchError) throw fetchError;
@@ -67,7 +67,7 @@ export const pastAnimeFinishWatching = async (animeId: number, userId: string): 
       view_count: currentCount + 1,
       episode: 0
     })
-    .eq('anime_id', animeId);
+    .eq('id', animeId);
     
   if (updateError) throw updateError;
   
