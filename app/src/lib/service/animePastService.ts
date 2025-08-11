@@ -87,4 +87,15 @@ export const pastAnimeFinishWatching = async (animeId: number, userId: string): 
     });
     
   if (insertError) throw insertError;
+  
+  // アニメ視聴終了日テーブルに登録
+  const { error: endDateError } = await supabase
+    .from('anime_viewing_end_dates')
+    .insert({
+      anime_id: animeId,
+      user_id: userId,
+      day: new Date().toISOString().split('T')[0]
+    });
+    
+  if (endDateError) throw endDateError;
 };

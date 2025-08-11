@@ -91,7 +91,7 @@ const AnimeViewedEntry = () => {
           <thead className="sticky top-0 bg-white z-10">
             <tr className="bg-gray-100">
               <th className="px-1 py-1 text-xs md:px-4 md:py-2 md:text-base font-medium text-gray-700 text-center">タイトル</th>
-              <th className="px-1 py-1 text-xs md:px-4 md:py-2 md:text-base font-medium text-gray-700 text-center">視聴終了日</th>
+              <th className="px-1 py-1 text-xs md:px-4 md:py-2 md:text-base font-medium text-gray-700 text-center">最新視聴終了日</th>
               <th className="px-1 py-1 text-xs md:px-4 md:py-2 md:text-base font-medium text-gray-700 text-center">視聴回数</th>
               <th className="px-1 py-1 text-xs md:px-4 md:py-2 md:text-base font-medium text-gray-700 text-center">再視聴</th> 
             </tr>

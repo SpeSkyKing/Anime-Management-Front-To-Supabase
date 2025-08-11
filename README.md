@@ -29,6 +29,8 @@
 - **current_anime**: 現在視聴中のアニメ（配信曜日、時間等）
 - **past_anime**: 過去に視聴したアニメ
 - **viewed_anime**: 視聴完了したアニメ
+- **anime_viewing_end_dates**: アニメ視聴終了日の履歴（複数回視聴対応）
+- **anime_watch_history**: アニメ視聴履歴（話数単位の視聴記録）
 
 ## 開発環境のセットアップ
 
