@@ -34,7 +34,7 @@ export const pastAnimeEpisodeUp = async (animeId: number, userId: string): Promi
   const { data: currentData, error: fetchError } = await supabase
     .from('anime')
     .select('episode')
-    .eq('id', animeId)
+    .eq('anime_id', animeId)
     .single();
     
   if (fetchError) throw fetchError;
@@ -55,7 +55,7 @@ export const pastAnimeFinishWatching = async (animeId: number, userId: string): 
   const { data: animeData, error: fetchError } = await supabase
     .from('anime')
     .select('view_count')
-    .eq('id', animeId)
+    .eq('anime_id', animeId)
     .single();
     
   if (fetchError) throw fetchError;
