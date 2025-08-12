@@ -44,7 +44,7 @@ export const pastAnimeEpisodeUp = async (animeId: number, userId: string): Promi
   const { error } = await supabase
     .from('anime')
     .update({ episode: newEpisode })
-    .eq('id', animeId);
+    .eq('anime_id', animeId);
     
   if (error) throw error;
   
@@ -67,7 +67,7 @@ export const pastAnimeFinishWatching = async (animeId: number, userId: string): 
       view_count: currentCount + 1,
       episode: 0
     })
-    .eq('id', animeId);
+    .eq('anime_id', animeId);
     
   if (updateError) throw updateError;
   
