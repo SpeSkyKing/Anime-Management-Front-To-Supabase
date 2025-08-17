@@ -42,12 +42,12 @@ const WatchHistoryEntry = () => {
         />
       </div>
       <div className="h-[calc(100vh-10rem)] w-full overflow-auto scrollbar-hide">
-        <table className="table-auto w-full border-collapse border border-gray-300">
+        <table className="table-fixed w-full border-collapse border border-gray-300">
           <thead className="sticky top-0 bg-white z-10">
             <tr className="bg-gray-100">
-              <th className="px-1 py-1 text-xs md:px-4 md:py-2 md:text-base font-medium text-gray-700 text-center">アニメタイトル</th>
-              <th className="px-1 py-1 text-xs md:px-4 md:py-2 md:text-base font-medium text-gray-700 text-center">話数</th>
-              <th className="px-1 py-1 text-xs md:px-4 md:py-2 md:text-base font-medium text-gray-700 text-center">視聴日時</th>
+              <th className="w-1/2 px-1 py-1 text-xs md:px-4 md:py-2 md:text-base font-medium text-gray-700 text-center">アニメタイトル</th>
+              <th className="w-1/4 px-1 py-1 text-xs md:px-4 md:py-2 md:text-base font-medium text-gray-700 text-center">話数</th>
+              <th className="w-1/4 px-1 py-1 text-xs md:px-4 md:py-2 md:text-base font-medium text-gray-700 text-center">視聴日時</th>
             </tr>
           </thead>
           <tbody>
