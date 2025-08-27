@@ -34,8 +34,13 @@ export const getWatchHistoryByDate = async (
   date: string
 ): Promise<any[]> => {
   try {
-    const startDate = `${date}T00:00:00.000Z`;
-    const endDate = `${date}T23:59:59.999Z`;
+    // JSTの00:00〜23:59をDateオブジェクトで作る
+    const jstStart = new Date(`${date}T00:00:00+09:00`);
+    const jstEnd = new Date(`${date}T23:59:59.999+09:00`);
+
+    // UTC ISO文字列に変換
+    const startDateUTC = jstStart.toISOString(); // UTCでの開始時刻
+    const endDateUTC = jstEnd.toISOString();     // UTCでの終了時刻
 
     const { data, error } = await supabase
       .from('anime_watch_history')
@@ -44,8 +49,8 @@ export const getWatchHistoryByDate = async (
         anime!inner(anime_name)
       `)
       .eq('user_id', userId)
-      .gte('created_at', startDate)
-      .lte('created_at', endDate)
+      .gte('created_at', startDateUTC)
+      .lte('created_at', endDateUTC)
       .order('created_at', { ascending: true });
 
     if (error) {
